@@ -1,0 +1,39 @@
+ALP to store 16 bytes of data (0 to 15) in memory locations at 2000H to 200FH. Transfer the entire block of data to new memory locations starting at 4000H.
+
+1000h: xx mvi a, 01h
+1001h: 01
+1002h: xx mvi c, 10h
+1003h: 10
+1004h: xx lxi d, 4000h
+1005h: 00
+1006h: 40
+1007h: xx store: stax d
+1008h: xx inr a
+1009h: xx dcr c
+100Ah: xx jz copy (1011h)
+100Bh: 11
+100Ch: 10
+100Dh: xx inx d
+100Eh: xx jnz store (1007h)
+100Fh: 07
+1010h: 10
+1011h: xx copy: lxi d, 4020h
+1012h: 20
+1013h: 40
+1014h: xx lxi h, 4000h
+1015h: 00
+1016h: 40
+1017h: xx mvi c, 10h
+1018h: 10
+1019h: xx cpy: mov a, m
+101Ah: xx stax d
+101Bh: xx inx d
+101Ch: xx inx h
+101Dh: xx dcr c
+101Eh: xx jz halt (1024h)
+101Fh: 24
+1020h: 10
+1021h: xx jnz cpy (1019h)
+1022h: 19
+1023h: 10
+1024h: halt: hlt
