@@ -1,0 +1,33 @@
+Write an ALP average of n numbers, take the numbers from 4000H location, and store the result in next location of last element.
+
+1000h: xx lxi d, 4000h
+1001h: 00
+1002h: 40
+1003h: xx mvi b, 00h
+1004h: 00
+1005h: xx mvi c, 00h
+1006h: 00
+1007h: xx loop: ldax d
+1008h: xx cmp c
+1009h: xx jz load (1012h)
+100Ah: 12
+100Bh: 10
+100Ch: xx add b
+100Dh: xx mov b, a
+100Eh: xx inx d
+100Fh: xx jnz loop (1007h)
+1010h: 07
+1011h: 10
+1012h: xx load: mov a,b
+1013h: xx avg: sub e
+1014h: jm halt (101Bh)
+1015h: 1B
+1016h: 10
+1017h: xx inr c
+1018h: xx jnz avg (1013h)
+1019h: 13
+101Ah: 10
+101Bh: xx halt: mov a, c
+101Ch: xx inx d
+101Dh: xx stax d
+101Eh: xx hlt
